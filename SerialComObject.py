@@ -8,18 +8,15 @@ import platform
 import serial
 import sys
 
-
-
 class SerialPort:
     def __init__(self):
-        self.serialport = 0
         self.baud = 9600
         self.usingplatform = ""
         self.GetPlatform()
-        self.SerialPortInit()
+        self.serialport = self.SerialPortInit()
         
     def GetPlatform (self):
-        self.usingplatform = platform.machine();
+        self.usingplatform = platform.machine()
         if self.usingplatform  == "aarch64":
             print("Platform", self.usingplatform, "Using Jetson Nano\n")
         elif self.usingplatform  == "AMD64":
@@ -32,16 +29,17 @@ class SerialPort:
            if self.usingplatform == "AMD64":
                self.serialport = serial.Serial("COM4",self.baud)
            elif self.usingplatform == "aarch64":
-               self.serialport = serial.Serial("/dev/ttyUSB1",self.baud)
+               serialObj = serial.Serial("/dev/ttyUSB1",self.baud)
                
         except serial.SerialException as serialerr:
             error = serialerr
             print (error)
-            self.serialport.close()
-            sys.exit()
+            self.serialport.Serial.close()
+            #sys.exit()
+        return serialObj
 
     def ClosePort(self):
-        self.serialport.close()
+        self.serialport.Serial.close()
             
     
     def Data_gen(self):

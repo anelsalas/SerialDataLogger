@@ -20,7 +20,7 @@ def main():
     #ani = animation.FuncAnimation(fig, run, com.Data_gen, interval=0, blit=True)
     myplot.updatePlot()
     #plt.show()
-    com.serialport.close() 
+    com.ClosePort() 
 
 if __name__ == "__main__":
    main()       
