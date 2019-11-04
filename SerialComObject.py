@@ -19,7 +19,7 @@ class SerialPort:
         self.SerialPortInit()
         
     def GetPlatform (self):
-        self.usingplatform = platform.machine();
+        self.usingplatform = platform.machine()
         if self.usingplatform  == "aarch64":
             print("Platform", self.usingplatform, "Using Jetson Nano\n")
         elif self.usingplatform  == "AMD64":
@@ -32,7 +32,7 @@ class SerialPort:
            if self.usingplatform == "AMD64":
                self.serialport = serial.Serial("COM4",self.baud)
            elif self.usingplatform == "aarch64":
-               self.serialport = serial.Serial("/dev/ttyUSB1",self.baud)
+               self.serialport = serial.Serial("/dev/ttyACM0",self.baud)
                
         except serial.SerialException as serialerr:
             error = serialerr
