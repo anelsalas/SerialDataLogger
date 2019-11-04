@@ -35,18 +35,18 @@ class Matplot:
    
     def run(self,data):
         t,y = data
-        del xdata[0]
-        del ydata[0]
-        xdata.append(t)
-        ydata.append(y)
-        self.line.set_data(xdata, ydata)
+        del self.xdata[0]
+        del self.ydata[0]
+        self.xdata.append(t)
+        self.ydata.append(y)
+        self.line.set_data(self.xdata, self.ydata)
         return self.line,
     
     def updatePlot(self):
         animation.FuncAnimation(self.fig, self.run, self.com.Data_gen, interval=0, blit=True)
         plt.show()
     
-    def testplots(self):
+def testplots():
         # First create some toy data:
         x = np.linspace(0, 2*np.pi, 400)
         y = np.sin(x**2)

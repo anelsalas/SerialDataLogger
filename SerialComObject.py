@@ -26,17 +26,16 @@ class SerialPort:
     def SerialPortInit(self):
         try:
         # serialport = serial.Serial("/dev/ttyUSB1",9600)
-           if self.usingplatform == "AMD64":
-               self.serialport = serial.Serial("COM4",self.baud)
-           elif self.usingplatform == "aarch64":
-               serialObj = serial.Serial("/dev/ttyUSB1",self.baud)
+            if self.usingplatform == "AMD64":
+               return (serial.Serial("COM4",self.baud))
+            elif self.usingplatform == "aarch64":
+               return(serial.Serial("/dev/ttyUSB1",self.baud))
                
         except serial.SerialException as serialerr:
             error = serialerr
             print (error)
             self.serialport.Serial.close()
-            #sys.exit()
-        return serialObj
+            sys.exit()
 
     def ClosePort(self):
         self.serialport.Serial.close()
