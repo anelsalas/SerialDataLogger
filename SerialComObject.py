@@ -29,7 +29,8 @@ class SerialPort:
             if self.usingplatform == "AMD64":
                return (serial.Serial("COM4",self.baud))
             elif self.usingplatform == "aarch64":
-               return(serial.Serial("/dev/ttyUSB1",self.baud))
+               return(serial.Serial("/dev/ttyACM0",self.baud))
+
                
         except serial.SerialException as serialerr:
             error = serialerr
