@@ -10,17 +10,19 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
 
-
-
-matrixsize = 1000
-xdata, ydata = [0]*matrixsize, [0]*matrixsize
-
-
 class Matplot:
+
+    numberOfElements = 100
+    xdata = np.arange(0,numberOfElements,0.1)
+    ydata = np.zeros(numberOfElements)
+    
+    com = None    
+    ax = None
+    fig =  None,
+
+    line = None#, = self.ax.plot(np.random.rand(10))
+
     def __init__(self,com):
-        self.numberOfElements = 500
-        self.xdata, self.ydata = [0]*self.numberOfElements, [0]*self.numberOfElements
-        
         # Creates just a figure and only one subplot
         self.fig, self.ax = plt.subplots()
         self.ax.set_xlabel('Time')
@@ -28,24 +30,62 @@ class Matplot:
         self.ax.set_title('Preassure vs Time')
 
         self.line, = self.ax.plot(np.random.rand(10))
-        self.ax.set_ylim(0, 1023)
+        self.ax.set_ylim(0, 1024)
         self.ax.set_xlim(0, self.numberOfElements)
         self.com = com
-       
-   
+
     def run(self,data):
-        t,y = data
-        del self.xdata[0]
-        del self.ydata[0]
-        self.xdata.append(t)
-        self.ydata.append(y)
-        self.line.set_data(self.xdata, self.ydata)
+        mydat,ele = data
+        self.ydata[ele] = mydat
+        self.line.set_ydata(mydat)
+        
         return self.line,
     
     def updatePlot(self):
-        animation.FuncAnimation(self.fig, self.run, self.com.Data_gen, interval=0, blit=True)
+
+        for l,l2 in self.com.XDat_gen():
+            print (l)
+        quit()
+        animation.FuncAnimation(
+                self.fig, self.run, self.com.XDat_gen, interval=1, blit=True)
         plt.show()
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def testplots():
         # First create some toy data:
         x = np.linspace(0, 2*np.pi, 400)
