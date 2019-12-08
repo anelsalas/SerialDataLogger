@@ -20,7 +20,7 @@ class SerialPort:
         if self.usingplatform  == "aarch64":
             print("Platform", self.usingplatform, "Using Jetson Nano\n")
         elif self.usingplatform  == "AMD64":
-            print("Platform: " , self.usingplatform, "Running on a Windows System")
+            print("Platform: " , self.usingplatform, "Running on a Windows System\n")
     
         
     def SerialPortInit(self):

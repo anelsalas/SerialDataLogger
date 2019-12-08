@@ -10,27 +10,31 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
 
+import csv
 
 
-matrixsize = 1000
-xdata, ydata = [0]*matrixsize, [0]*matrixsize
+#xdata, ydata = [0]*matrixsize, [0]*matrixsize
 
 
 class Matplot:
     def __init__(self,com):
-        self.numberOfElements = 500
+        self.numberOfElements = 30000
         self.xdata, self.ydata = [0]*self.numberOfElements, [0]*self.numberOfElements
         
         # Creates just a figure and only one subplot
         self.fig, self.ax = plt.subplots()
         self.ax.set_xlabel('Time')
-        self.ax.set_ylabel('PSI')
+        self.ax.set_ylabel('10 bit ADC (1024)')
         self.ax.set_title('Preassure vs Time')
 
         self.line, = self.ax.plot(np.random.rand(10))
         self.ax.set_ylim(0, 1023)
-        self.ax.set_xlim(0, self.numberOfElements)
+        self.ax.set_xlim(0, 1000)#self.numberOfElements)
         self.com = com
+        self.totalcount = 0
+        self.file = open("data.csv","a")
+        self.writer = csv.writer(self.file)
+
        
    
     def run(self,data):
@@ -39,7 +43,15 @@ class Matplot:
         del self.ydata[0]
         self.xdata.append(t)
         self.ydata.append(y)
+        self.totalcount += 1
+        self.writer.writerow(y)
+        
+
         self.line.set_data(self.xdata, self.ydata)
+#        if self.totalcount == 25000:
+#            with open("data.csv", "wb") as f:
+#                writer = csv.writer(f)
+#                writer.writerows(self.ydata)
         return self.line,
     
     def updatePlot(self):
